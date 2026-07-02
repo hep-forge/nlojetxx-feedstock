@@ -24,6 +24,7 @@ requirements:
     - {{ compiler('c') }}
 
     - make
+    - gnuconfig
 
 about:
   home: "https://www.desy.de/~znagy/Site/NLOJet++.html"
