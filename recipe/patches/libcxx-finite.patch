@@ -1,0 +1,29 @@
+--- a/nlo-hep/hep-stat/bits/hep-sample_traits.h	2010-05-12 00:06:00.000000000 +0900
++++ b/nlo-hep/hep-stat/bits/hep-sample_traits.h	2026-07-02 09:48:36.948935796 +0900
+@@ -139,7 +139,7 @@
+   }
+    
+   inline bool sample_traits<double>::finite(const double& x) {
+-    return (::finite(x) ? true : false);
++    return (std::isfinite(x) ? true : false);
+   }
+ 
+   template<typename _Xp>
+@@ -254,7 +254,7 @@
+   }
+    
+   inline bool sample_traits<float>::finite(const float& x) {
+-    return (::finite(x) ? true : false);
++    return (std::isfinite(x) ? true : false);
+   }
+ 
+   template<typename _Xp>
+@@ -370,7 +370,7 @@
+   }
+    
+   inline bool sample_traits<long double>::finite(const long double& x) {
+-    return (::finite(x) ? true : false);
++    return (std::isfinite(x) ? true : false);
+   }
+ 
+   template<typename _Xp>

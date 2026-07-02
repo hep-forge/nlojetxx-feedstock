@@ -20,6 +20,9 @@ source:
     # Apple Clang rejects the explicit-specialization forward declarations
     # missing `template<>` (GCC tolerates it); breaks the macos-arm64 build.
     - patches/clang-template-specialization.patch
+    # ::finite() (global-namespace legacy POSIX function) isn't provided by
+    # Apple's libc++; std::isfinite() is the portable C++11 replacement.
+    - patches/libcxx-finite.patch
 
 requirements:
   build:
