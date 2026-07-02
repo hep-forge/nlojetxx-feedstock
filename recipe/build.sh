@@ -25,5 +25,9 @@ fi
 
 ./configure --prefix=$PREFIX
 
-make -j$(nproc)
+# nproc doesn't exist on macOS; without a fallback, `make -j$(nproc)`
+# silently becomes unbounded-parallelism `make -j`, which can exhaust
+# the runner's memory and get killed with no useful error message.
+NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu)
+make -j$NPROC
 make install
