@@ -26,8 +26,15 @@ fi
 ./configure --prefix=$PREFIX
 
 # nproc doesn't exist on macOS; without a fallback, `make -j$(nproc)`
-# silently becomes unbounded-parallelism `make -j`, which can exhaust
-# the runner's memory and get killed with no useful error message.
+# silently becomes unbounded-parallelism `make -j`.
 NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu)
+if [ "$(uname)" = "Darwin" ]; then
+  # The parallel build on macOS terminates silently a few seconds into
+  # all-recursive with no error text even after the nproc fix above --
+  # serial output rules out both a possible OOM from concurrent compiles
+  # and any chance the real error is getting lost in interleaved/buffered
+  # parallel-make output.
+  NPROC=1
+fi
 make -j$NPROC
 make install
