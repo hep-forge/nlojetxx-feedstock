@@ -27,3 +27,14 @@
    }
  
    template<typename _Xp>
+--- a/nlo-core/bits/nlo-weight.h	2010-05-12 00:06:00.000000000 +0900
++++ b/nlo-core/bits/nlo-weight.h	2026-07-02 09:55:56.672553099 +0900
+@@ -319,7 +319,7 @@
+   inline bool IsFinite(const weight<_Size, _Label> & x) 
+   {
+     for(unsigned int i = 0; i < _Size; i++)
+-      if(!::finite(x[i])) return false;
++      if(!std::isfinite(x[i])) return false;
+     return true;
+   }
+   
