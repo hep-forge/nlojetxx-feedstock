@@ -16,6 +16,10 @@ source:
   {% if versions.get(version, None) %}
   sha256: {{ versions.get(version) }}
   {% endif %}
+  patches:
+    # Apple Clang rejects the explicit-specialization forward declarations
+    # missing `template<>` (GCC tolerates it); breaks the macos-arm64 build.
+    - patches/clang-template-specialization.patch
 
 requirements:
   build:

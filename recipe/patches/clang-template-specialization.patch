@@ -1,0 +1,28 @@
+--- a/nlo-hep/hep-lorentz/bits/hep-threevector_complex.h	2026-07-02 09:38:23.857469376 +0900
++++ b/nlo-hep/hep-lorentz/bits/hep-threevector_complex.h	2026-07-02 09:38:23.861469373 +0900
+@@ -26,8 +26,11 @@
+ namespace nlo {
+   
+   //    Specializations
++  template<>
+   class threevector<std::complex<float> >;
++  template<>
+   class threevector<std::complex<double> >;
++  template<>
+   class threevector<std::complex<long double> >;
+   
+   template<>
+--- a/nlo-hep/hep-lorentz/bits/hep-lorentzvector_complex.h	2026-07-02 09:38:23.857469376 +0900
++++ b/nlo-hep/hep-lorentz/bits/hep-lorentzvector_complex.h	2026-07-02 09:38:23.865469369 +0900
+@@ -26,8 +26,11 @@
+ namespace nlo {
+ 
+   //   Spacializations
++  template<>
+   class lorentzvector<std::complex<float> >;
++  template<>
+   class lorentzvector<std::complex<double> >;
++  template<>
+   class lorentzvector<std::complex<long double> >;
+   
+   template<>
