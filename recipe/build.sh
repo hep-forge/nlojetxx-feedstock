@@ -15,12 +15,15 @@ if [ "$(uname)" = "Darwin" ]; then
   # libstdc++ still ships them, so this is a no-op on linux.
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION -D_LIBCPP_ENABLE_CXX17_REMOVED_BINDERS"
 
-  # The bundled libtool script (~2010) mishandles Darwin's relocatable
-  # (-r) partial-link step together with -rpath against modern Apple ld
-  # ("ld: -rpath can only be used when creating a dynamic final linked
-  # image"). Regenerate it from the current libtool package, which knows
-  # about this case, without touching configure/Makefile.in generation.
-  libtoolize --force --copy
+  # The bundled build system (~2010) mishandles Darwin's relocatable (-r)
+  # partial-link step together with -rpath against modern Apple ld ("ld:
+  # -rpath can only be used when creating a dynamic final linked image").
+  # Its Makefiles also hardcode "aclocal-1.11" to rebuild aclocal.m4 when
+  # macro files look newer -- a version that isn't installed here, so any
+  # later timestamp-triggered regeneration fails with "aclocal-1.11:
+  # command not found". Regenerate the whole build system from the
+  # currently installed autotools instead of patching around each symptom.
+  autoreconf -fi
 fi
 
 ./configure --prefix=$PREFIX
@@ -28,13 +31,5 @@ fi
 # nproc doesn't exist on macOS; without a fallback, `make -j$(nproc)`
 # silently becomes unbounded-parallelism `make -j`.
 NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu)
-if [ "$(uname)" = "Darwin" ]; then
-  # The parallel build on macOS terminates silently a few seconds into
-  # all-recursive with no error text even after the nproc fix above --
-  # serial output rules out both a possible OOM from concurrent compiles
-  # and any chance the real error is getting lost in interleaved/buffered
-  # parallel-make output.
-  NPROC=1
-fi
 make -j$NPROC
 make install
