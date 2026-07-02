@@ -8,10 +8,12 @@ for f in config.sub config.guess; do
 done
 
 if [ "$(uname)" = "Darwin" ]; then
-  # std::unary_function/binary_function were removed from the standard in
-  # C++17; Apple's libc++ enforces the removal unless this compatibility
-  # macro opts back in (GNU libstdc++ still provides them, so linux is fine).
-  export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION"
+  # A grab-bag of C++98 STL functor-adaptor utilities was removed from the
+  # standard in C++17 (unary_function/binary_function, and separately the
+  # bind1st/bind2nd/pointer_to_{unary,binary}_function/mem_fun family).
+  # Apple's libc++ enforces both removals unless opted back in; GNU
+  # libstdc++ still ships them, so this is a no-op on linux.
+  export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION -D_LIBCPP_ENABLE_CXX17_REMOVED_BINDERS"
 fi
 
 ./configure --prefix=$PREFIX
