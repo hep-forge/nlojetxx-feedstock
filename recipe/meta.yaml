@@ -32,6 +32,7 @@ requirements:
 
     - make
     - gnuconfig
+    - libtool
 
 about:
   home: "https://www.desy.de/~znagy/Site/NLOJet++.html"

@@ -14,6 +14,13 @@ if [ "$(uname)" = "Darwin" ]; then
   # Apple's libc++ enforces both removals unless opted back in; GNU
   # libstdc++ still ships them, so this is a no-op on linux.
   export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION -D_LIBCPP_ENABLE_CXX17_REMOVED_BINDERS"
+
+  # The bundled libtool script (~2010) mishandles Darwin's relocatable
+  # (-r) partial-link step together with -rpath against modern Apple ld
+  # ("ld: -rpath can only be used when creating a dynamic final linked
+  # image"). Regenerate it from the current libtool package, which knows
+  # about this case, without touching configure/Makefile.in generation.
+  libtoolize --force --copy
 fi
 
 ./configure --prefix=$PREFIX
