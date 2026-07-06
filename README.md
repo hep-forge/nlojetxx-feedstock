@@ -16,7 +16,7 @@ NLOJET++ is a C++ program for calculating LO and NLO order cross section.
 | Architecture | Latest published |
 |--------------|------------------|
 | linux-amd64 (`linux-64`) | ✅ `4.1.3` |
-| linux-arm64 (`linux-aarch64`) | ❌ not published |
+| linux-arm64 (`linux-aarch64`) | ✅ `4.1.3` |
 
 _As of the last feedstock render; the badges above are live._
 
