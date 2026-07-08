@@ -29,6 +29,7 @@ requirements:
     - {{ compiler('gfortran') }}
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
 
     - make
     - autoconf
