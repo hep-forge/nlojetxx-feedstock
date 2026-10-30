@@ -26,7 +26,7 @@ source:
 
 requirements:
   build:
-    - {{ compiler('gfortran') }}
+    - {{ compiler('fortran') }}
     - {{ compiler('cxx') }}
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
