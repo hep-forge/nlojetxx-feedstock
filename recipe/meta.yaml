@@ -12,7 +12,12 @@ package:
   version: {{ environ.get('ANACONDA_VERSION', version)|replace("-", ".") }}
 
 source:
-  url: "http://desy.de/~znagy/hep-programs/nlojet++/nlojet++-{{ version }}.tar.gz"
+  # desy.de serves the .tar.gz with Content-Encoding: gzip, so the download is
+  # the uncompressed tar and the sha256 above is the tar's, not the .tar.gz's.
+  url:
+    - "http://desy.de/~znagy/hep-programs/nlojet++/nlojet++-{{ version }}.tar.gz"
+    # mirror of that same uncompressed tar (same sha256): desy.de timed out on 2026-10-30
+    - "https://github.com/hep-forge/nlojetxx-feedstock/releases/download/{{ version }}/nlojet-{{ version }}.tar"
   {% if versions.get(version, None) %}
   sha256: {{ versions.get(version) }}
   {% endif %}
