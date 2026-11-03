@@ -42,6 +42,13 @@ requirements:
     - gnuconfig
     - libtool
 
+  # nlojet++ links libltdl. On Linux the build finds it without help; on
+  # macOS it has to be in the target prefix, and the binary then needs it.
+  host:
+    - libtool  # [osx]
+  run:
+    - libtool  # [osx]
+
 about:
   home: "https://www.desy.de/~znagy/Site/NLOJet++.html"
   license: "GPL-3.0"
